@@ -1,0 +1,98 @@
+index.html file name 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Online Fitness Platform</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <h1>Online Fitness Platform</h1>
+        <nav>
+            <ul>
+                <li><a href="#" id="linkLanding">Landing Page</a></li>
+                <li><a href="#" id="linkSignup">Sign Up</a></li>
+                <li><a href="#" id="linkLogin">Log In</a></li>
+                <li><a href="#" id="linkHome">Home</a></li>
+                <li><a href="#" id="linkWorkout">Schedule Workout</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section id="landing">
+            <h2>Welcome to Our Fitness Platform</h2>
+            <p>New User? Let's get started!</p>
+            <button id="startButton">Get Started</button>
+        </section>
+
+        <section id="signup" class="hidden">
+            <h2>Sign Up</h2>
+            <form id="signupForm">
+                <label for="goal">Select Goal:</label>
+                <select id="goal" required>
+                    <option value="">--Select Goal--</option>
+                    <option value="weight_loss">Weight Loss</option>
+                    <option value="muscle_gain">Muscle Gain</option>
+                    <option value="endurance">Endurance</option>
+                </select>
+
+                <label for="time">Select Time:</label>
+                <input type="time" id="time" required>
+
+                <button type="submit">Sign Up</button>
+            </form>
+        </section>
+
+        <section id="home" class="hidden">
+            <h2>Home</h2>
+            <div id="workoutList">
+                <h3>Workout List</h3>
+                <ul>
+                    <li>Workout 1</li>
+                    <li>Workout 2</li>
+                    <li>Workout 3</li>
+                </ul>
+            </div>
+            <button id="dailyChallengeButton">Daily Challenge</button>
+            <div id="achievements">
+                <h3>Achievements</h3>
+                <p>No achievements yet!</p>
+            </div>
+            <div id="profile">
+                <h3>Your Profile</h3>
+                <p>View and edit your profile details.</p>
+            </div>
+        </section>
+
+        <section id="login" class="hidden">
+            <h2>Log In</h2>
+            <form id="loginForm">
+                <label for="username">Username:</label>
+                <input type="text" id="username" required>
+                
+                <label for="password">Password:</label>
+                <input type="password" id="password" required>
+
+                <button type="submit">Log In</button>
+            </form>
+        </section>
+        
+        <section id="workout" class="hidden">
+            <h2>Schedule Workout</h2>
+            <button id="watchVideoButton">Watch Video</button>
+            <button id="startWorkoutButton">Start Workout</button>
+            <button id="shareButton">Share</button>
+            <button id="completeButton">Complete</button>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 Online Fitness Platform</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
