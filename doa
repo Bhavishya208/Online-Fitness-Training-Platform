@@ -1,0 +1,195 @@
+import java.sql.*;
+import java.util.*;
+
+public class UserDAO {
+
+    // Database connection parameters
+    private static final String URL = "jdbc:mysql://localhost:3306/FitnessTrainingPlatform";
+    private static final String USER = "root"; // Update with your DB username
+    private static final String PASSWORD = "password"; // Update with your DB password
+
+    // Database connection method
+    private Connection getConnection() throws SQLException {
+        return DriverManager.getConnection(URL, USER, PASSWORD);
+    }
+
+    // Method to add a new user to the Users table
+    public boolean addUser(String firstName, String lastName, String email, String password, String phoneNumber,
+                            String address, Date dateOfBirth, String gender, String role) {
+        String query = "INSERT INTO Users (first_name, last_name, email, password, phone_number, address, date_of_birth, gender, role) " +
+                       "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+
+        try (Connection connection = getConnection(); PreparedStatement stmt = connection.prepareStatement(query)) {
+            stmt.setString(1, firstName);
+            stmt.setString(2, lastName);
+            stmt.setString(3, email);
+            stmt.setString(4, password);
+            stmt.setString(5, phoneNumber);
+            stmt.setString(6, address);
+            stmt.setDate(7, dateOfBirth);
+            stmt.setString(8, gender);
+            stmt.setString(9, role);
+
+            int rowsAffected = stmt.executeUpdate();
+            return rowsAffected > 0; // Return true if user is added successfully
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    // Method to retrieve a user by their email
+    public User getUserByEmail(String email) {
+        String query = "SELECT * FROM Users WHERE email = ?";
+        User user = null;
+
+        try (Connection connection = getConnection(); PreparedStatement stmt = connection.prepareStatement(query)) {
+            stmt.setString(1, email);
+            ResultSet rs = stmt.executeQuery();
+
+            if (rs.next()) {
+                user = new User(
+                    rs.getInt("user_id"),
+                    rs.getString("first_name"),
+                    rs.getString("last_name"),
+                    rs.getString("email"),
+                    rs.getString("password"),
+                    rs.getString("phone_number"),
+                    rs.getString("address"),
+                    rs.getDate("date_of_birth"),
+                    rs.getString("gender"),
+                    rs.getString("role"),
+                    rs.getTimestamp("registration_date")
+                );
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return user;
+    }
+
+    // Method to update user details (example: updating phone number)
+    public boolean updateUserPhoneNumber(int userId, String newPhoneNumber) {
+        String query = "UPDATE Users SET phone_number = ? WHERE user_id = ?";
+
+        try (Connection connection = getConnection(); PreparedStatement stmt = connection.prepareStatement(query)) {
+            stmt.setString(1, newPhoneNumber);
+            stmt.setInt(2, userId);
+
+            int rowsAffected = stmt.executeUpdate();
+            return rowsAffected > 0; // Return true if update is successful
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    // Method to delete a user by their user ID
+    public boolean deleteUserById(int userId) {
+        String query = "DELETE FROM Users WHERE user_id = ?";
+
+        try (Connection connection = getConnection(); PreparedStatement stmt = connection.prepareStatement(query)) {
+            stmt.setInt(1, userId);
+            int rowsAffected = stmt.executeUpdate();
+            return rowsAffected > 0; // Return true if user is deleted
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    // Method to retrieve all users (for admins)
+    public List<User> getAllUsers() {
+        String query = "SELECT * FROM Users";
+        List<User> users = new ArrayList<>();
+
+        try (Connection connection = getConnection(); Statement stmt = connection.createStatement()) {
+            ResultSet rs = stmt.executeQuery(query);
+
+            while (rs.next()) {
+                User user = new User(
+                    rs.getInt("user_id"),
+                    rs.getString("first_name"),
+                    rs.getString("last_name"),
+                    rs.getString("email"),
+                    rs.getString("password"),
+                    rs.getString("phone_number"),
+                    rs.getString("address"),
+                    rs.getDate("date_of_birth"),
+                    rs.getString("gender"),
+                    rs.getString("role"),
+                    rs.getTimestamp("registration_date")
+                );
+                users.add(user);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return users;
+    }
+}
+
+// User class to represent the Users table in the database
+class User {
+    private int userId;
+    private String firstName;
+    private String lastName;
+    private String email;
+    private String password;
+    private String phoneNumber;
+    private String address;
+    private Date dateOfBirth;
+    private String gender;
+    private String role;
+    private Timestamp registrationDate;
+
+    // Constructor
+    public User(int userId, String firstName, String lastName, String email, String password, String phoneNumber,
+                String address, Date dateOfBirth, String gender, String role, Timestamp registrationDate) {
+        this.userId = userId;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+        this.password = password;
+        this.phoneNumber = phoneNumber;
+        this.address = address;
+        this.dateOfBirth = dateOfBirth;
+        this.gender = gender;
+        this.role = role;
+        this.registrationDate = registrationDate;
+    }
+
+    // Getters and Setters
+    public int getUserId() { return userId; }
+    public void setUserId(int userId) { this.userId = userId; }
+
+    public String getFirstName() { return firstName; }
+    public void setFirstName(String firstName) { this.firstName = firstName; }
+
+    public String getLastName() { return lastName; }
+    public void setLastName(String lastName) { this.lastName = lastName; }
+
+    public String getEmail() { return email; }
+    public void setEmail(String email) { this.email = email; }
+
+    public String getPassword() { return password; }
+    public void setPassword(String password) { this.password = password; }
+
+    public String getPhoneNumber() { return phoneNumber; }
+    public void setPhoneNumber(String phoneNumber) { this.phoneNumber = phoneNumber; }
+
+    public String getAddress() { return address; }
+    public void setAddress(String address) { this.address = address; }
+
+    public Date getDateOfBirth() { return dateOfBirth; }
+    public void setDateOfBirth(Date dateOfBirth) { this.dateOfBirth = dateOfBirth; }
+
+    public String getGender() { return gender; }
+    public void setGender(String gender) { this.gender = gender; }
+
+    public String getRole() { return role; }
+    public void setRole(String role) { this.role = role; }
+
+    public Timestamp getRegistrationDate() { return registrationDate; }
+    public void setRegistrationDate(Timestamp registrationDate) { this.registrationDate = registrationDate; }
+}
