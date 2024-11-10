@@ -1,0 +1,19 @@
+fitness-platform/
+├── backend/
+│   ├── src/
+│   │   ├── main/
+│   │   │   ├── java/
+│   │   │   │   ├── com/
+│   │   │   │   │   └── fitnessplatform/
+│   │   │   │   │       ├── dao/
+│   │   │   │   │       ├── controller/
+│   │   │   │   │       ├── model/
+│   │   │   │   │       └── service/
+│   │   │   ├── resources/
+│   │   │   │   └── application.properties
+│   ├── pom.xml (for Maven/ Spring Boot)
+├── frontend/
+│   ├── src/
+│   │   ├── components/
+│   │   └── App.js
+└── README.md
