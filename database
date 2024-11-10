@@ -1,0 +1,114 @@
+-- Create the database
+CREATE DATABASE FitnessTrainingPlatform;
+
+-- Switch to the newly created database
+USE FitnessTrainingPlatform;
+
+-- 1. Users Table
+CREATE TABLE Users (
+    user_id INT PRIMARY KEY AUTO_INCREMENT,
+    first_name VARCHAR(100),
+    last_name VARCHAR(100),
+    email VARCHAR(255) UNIQUE NOT NULL,
+    password VARCHAR(255) NOT NULL,
+    phone_number VARCHAR(15),
+    address TEXT,
+    date_of_birth DATE,
+    gender ENUM('Male', 'Female', 'Other'),
+    role ENUM('Client', 'Admin') DEFAULT 'Client',
+    registration_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+-- 2. Trainers Table
+CREATE TABLE Trainers (
+    trainer_id INT PRIMARY KEY AUTO_INCREMENT,
+    first_name VARCHAR(100),
+    last_name VARCHAR(100),
+    email VARCHAR(255) UNIQUE NOT NULL,
+    phone_number VARCHAR(15),
+    qualifications TEXT,
+    bio TEXT,
+    profile_picture_url VARCHAR(255),
+    availability ENUM('Available', 'Unavailable'),
+    registration_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+-- 3. Training Programs Table
+CREATE TABLE TrainingPrograms (
+    program_id INT PRIMARY KEY AUTO_INCREMENT,
+    trainer_id INT,
+    program_name VARCHAR(255),
+    program_description TEXT,
+    duration INT, -- in days or weeks
+    difficulty_level ENUM('Beginner', 'Intermediate', 'Advanced'),
+    price DECIMAL(10, 2),
+    start_date DATE,
+    end_date DATE,
+    FOREIGN KEY (trainer_id) REFERENCES Trainers(trainer_id)
+);
+
+-- 4. Enrollments Table
+CREATE TABLE Enrollments (
+    enrollment_id INT PRIMARY KEY AUTO_INCREMENT,
+    user_id INT,
+    program_id INT,
+    enrollment_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    status ENUM('Active', 'Completed', 'Cancelled') DEFAULT 'Active',
+    FOREIGN KEY (user_id) REFERENCES Users(user_id),
+    FOREIGN KEY (program_id) REFERENCES TrainingPrograms(program_id)
+);
+
+-- 5. Workout Sessions Table
+CREATE TABLE WorkoutSessions (
+    session_id INT PRIMARY KEY AUTO_INCREMENT,
+    program_id INT,
+    user_id INT,
+    session_date DATE,
+    session_type VARCHAR(255), -- e.g., Cardio, Strength, Flexibility
+    duration INT, -- in minutes
+    calories_burned INT,
+    notes TEXT,
+    FOREIGN KEY (program_id) REFERENCES TrainingPrograms(program_id),
+    FOREIGN KEY (user_id) REFERENCES Users(user_id)
+);
+
+-- 6. Payments Table
+CREATE TABLE Payments (
+    payment_id INT PRIMARY KEY AUTO_INCREMENT,
+    user_id INT,
+    program_id INT,
+    payment_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    amount DECIMAL(10, 2),
+    payment_status ENUM('Pending', 'Completed', 'Failed') DEFAULT 'Pending',
+    payment_method ENUM('Credit Card', 'PayPal', 'Bank Transfer'),
+    FOREIGN KEY (user_id) REFERENCES Users(user_id),
+    FOREIGN KEY (program_id) REFERENCES TrainingPrograms(program_id)
+);
+
+-- 7. User Progress Table
+CREATE TABLE UserProgress (
+    progress_id INT PRIMARY KEY AUTO_INCREMENT,
+    user_id INT,
+    program_id INT,
+    progress_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    weight DECIMAL(5, 2),
+    body_fat_percentage DECIMAL(5, 2),
+    muscle_mass DECIMAL(5, 2),
+    comments TEXT,
+    FOREIGN KEY (user_id) REFERENCES Users(user_id),
+    FOREIGN KEY (program_id) REFERENCES TrainingPrograms(program_id)
+);
+
+-- 8. Feedback Table
+CREATE TABLE Feedback (
+    feedback_id INT PRIMARY KEY AUTO_INCREMENT,
+    user_id INT,
+    trainer_id INT,
+    program_id INT,
+    rating INT CHECK (rating >= 1 AND rating <= 5),  -- Rating out of 5
+    feedback_text TEXT,
+    feedback_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (user_id) REFERENCES Users(user_id),
+    FOREIGN KEY (trainer_id) REFERENCES Trainers(trainer_id),
+    FOREIGN KEY (program_id) REFERENCES TrainingPrograms(program_id)
+);
