@@ -1,0 +1,23 @@
+package com.fitness.service;
+
+import com.fitness.model.WorkoutPlan;
+import com.fitness.repository.WorkoutPlanRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+
+@Service
+public class WorkoutService {
+
+    @Autowired
+    private WorkoutPlanRepository workoutPlanRepository;
+
+    public List<WorkoutPlan> getWorkoutPlansByUserId(Long userId) {
+        return workoutPlanRepository.findByUserId(userId);
+    }
+
+    public WorkoutPlan createWorkoutPlan(WorkoutPlan workoutPlan) {
+        return workoutPlanRepository.save(workoutPlan);
+    }
+}
