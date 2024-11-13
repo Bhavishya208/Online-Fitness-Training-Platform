@@ -1,0 +1,26 @@
+package com.fitness.controller;
+
+import com.fitness.model.WorkoutPlan;
+import com.fitness.service.WorkoutService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+
+@RestController
+@RequestMapping("/api/workouts")
+public class WorkoutController {
+
+    @Autowired
+    private WorkoutService workoutService;
+
+    @GetMapping("/user/{userId}")
+    public List<WorkoutPlan> getWorkoutPlans(@PathVariable Long userId) {
+        return workoutService.getWorkoutPlansByUserId(userId);
+    }
+
+    @PostMapping
+    public WorkoutPlan createWorkoutPlan(@RequestBody WorkoutPlan workoutPlan) {
+        return workoutService.createWorkoutPlan(workoutPlan);
+    }
+}
