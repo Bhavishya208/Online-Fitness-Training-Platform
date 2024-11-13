@@ -30,7 +30,7 @@ Uses MySQL to store user data, workout plans, trainer details, and progress logs
 
 ## 🎨 **Preview of Database Connection**
 
-![Database Connection Successful](./assets/DatabasePreview.jpeg)
+![Database Connection Successful](./Online-Fitness-Training-Platform/blob/5113c11a30f51f6e9cc9d6ce6f7028f9de370246/Database%20Preview.jpeg)
 
 ---
 
