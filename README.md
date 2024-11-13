@@ -1,30 +1,123 @@
-Online Fitness Training Platform
+# 🏋️ **Online Fitness Training Platform**
+## 📜 **Project Description**
+Welcome to the **Online Fitness Training Platform**! This web-based solution connects **users**, **trainers**, and **admins** for an enhanced fitness journey. With personalized workout plans, progress tracking, and role-specific features, the platform is designed to help users achieve their fitness goals with expert guidance.
 
-The Online Fitness Training Platform is a digital solution connecting individuals with certified fitness trainers and wellness resources from the convenience of their devices. It is designed to provide personalized workout and nutrition plans, track progress, and foster a supportive community of people striving for healthier lifestyles.
+---
 
-Why Use the Platform?
+##✨ **Features**
+**User Roles**:
 
-With the rise of virtual fitness solutions, this platform offers a flexible and accessible way for users to achieve their health goals without the constraints of traditional gym settings. It’s perfect for busy individuals, people who prefer at-home workouts, or anyone looking for expert guidance to improve their fitness journey.
+  - **Use**r: Access and follow personalized workout plans.
+  - **Trainer**: Create and manage workout plans, monitor user progress.
+  - **Admin**: Manage users, trainers, and overall platform activities.
+- 💪 **Personalized Workout Plans**:
+Tailor-made fitness plans based on user goals, preferences, and fitness levels.
 
-Objectives
+- 📈 **Progress Tracking**:
+Track workout history, improvements in performance, and overall fitness progress.
 
-Make fitness accessible: Bring professional training and wellness resources to users anywhere, anytime.
+- 🔗 **Database Integration**:
+Uses MySQL to store user data, workout plans, trainer details, and progress logs.
 
-Promote personalized wellness: Tailor fitness programs to each user’s goals, level, and preferences.
+##🚀 **Technologies Used**
+- **Java (JDK)**: Backend development.
+- **JDBC**: Database connectivity.
+- **MySQL**: Database storage.
+- **VS Code**: Development environment.
+- **MySQL JDBC Driver**: Connects Java to MySQL.
 
-Encourage progress tracking: Provide tools to monitor fitness and health metrics, supporting motivation and improvement.
+---
 
-Build a community: Offer a social support system where users can connect, share goals, and motivate each other.
+## 🛠️ **Database Schema**
+The system uses a MySQL database with the following key tables:
+
+### 🧑‍🤝‍🧑 **Users Table**
 
 
-Key Features
+```sql
+CREATE TABLE Users (
+    user_id INT PRIMARY KEY AUTO_INCREMENT,
+    username VARCHAR(50) UNIQUE NOT NULL,
+    email VARCHAR(100) UNIQUE NOT NULL,
+    password VARCHAR(100) NOT NULL,
+    phone_number VARCHAR(15),
+    address TEXT,
+    role ENUM('user', 'trainer', 'admin') DEFAULT 'user'
+);
+```
 
-Personalized Training Programs: Customized workout plans designed to meet individual goals and fitness levels.
 
-Nutrition Tracking: Tools for tracking meals and managing diet in alignment with fitness objectives.
+### 🏋️ **Workout Plans Table**
 
-Live and On-Demand Classes: Join live sessions or access a library of pre-recorded workouts for flexible scheduling.
 
-Progress Analytics: Visualize improvements over time through progress tracking and insights.
+```sql
+CREATE TABLE WorkoutPlans (
+    plan_id INT PRIMARY KEY AUTO_INCREMENT,
+    trainer_id INT NOT NULL,
+    plan_name VARCHAR(100) NOT NULL,
+    description TEXT,
+    difficulty_level ENUM('beginner', 'intermediate', 'advanced'),
+    duration INT NOT NULL,  -- duration in weeks
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+```
 
-Community Support: Connect with other users, join challenges, and share achievements.
+
+### 💪 **User Progress Table**
+
+
+```sql
+CREATE TABLE UserProgress (
+    progress_id INT PRIMARY KEY AUTO_INCREMENT,
+    user_id INT NOT NULL,
+    plan_id INT NOT NULL,
+    date DATE NOT NULL,
+    progress_notes TEXT,
+    workout_completed BOOLEAN NOT NULL,
+    performance_metrics TEXT,  -- e.g. weight lifted, distance run, etc.
+    achieved_goals TEXT  -- user-specific milestones
+);
+```
+
+
+### 🎓 **Trainer Table**
+
+
+```sql
+CREATE TABLE Trainers (
+    trainer_id INT PRIMARY KEY AUTO_INCREMENT,
+    name VARCHAR(100) NOT NULL,
+    bio TEXT,
+    specialty VARCHAR(50),
+    phone_number VARCHAR(15),
+    email VARCHAR(100),
+    certification TEXT
+);
+```
+
+
+## 🗂️ **Project Structure**
+
+```
+online-fitness-training/
+├── src/
+│   └── com/
+│       └── fitnessplatform/
+│           ├── User.java
+│           ├── UserDAO.java
+│           ├── WorkoutPlanDAO.java
+│           ├── UserProgressDAO.java
+│           ├── TrainerDAO.java
+│           └── DBConnection.java
+├── lib/
+│   └── mysql-connector-java-x.x.x.jar (MySQL JDBC Driver)
+├── assets/
+│   └── database-connection-success.png
+├── .gitignore
+├── README.md
+└── Main.java
+```
+
+--- 
+
+With the Online Fitness Training Platform, achieving fitness goals is easier, more accessible, and guided by expert trainers. Whether you're a beginner or an experienced athlete, our personalized workout plans and progress tracking ensure that your journey toward fitness is effective and motivating!
