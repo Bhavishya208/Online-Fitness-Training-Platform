@@ -4,7 +4,7 @@ Welcome to the **Online Fitness Training Platform**! This web-based solution con
 
 ---
 
-##✨ **Features**
+## ✨ **Features**
 **User Roles**:
 
   - **Use**r: Access and follow personalized workout plans.
@@ -19,7 +19,7 @@ Track workout history, improvements in performance, and overall fitness progress
 - 🔗 **Database Integration**:
 Uses MySQL to store user data, workout plans, trainer details, and progress logs.
 
-##🚀 **Technologies Used**
+## 🚀 **Technologies Used**
 - **Java (JDK)**: Backend development.
 - **JDBC**: Database connectivity.
 - **MySQL**: Database storage.
