@@ -1,0 +1,23 @@
+package com.fitness.model;
+
+import javax.persistence.*;
+import java.util.List;
+
+@Entity
+public class WorkoutPlan {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    private String name;
+    private String description;
+
+    @ManyToOne
+    private User user;
+
+    @OneToMany(mappedBy = "workoutPlan")
+    private List<Exercise> exercises;
+
+    // Getters and Setters
+}
