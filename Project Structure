@@ -1,19 +1,26 @@
-fitness-platform/
-├── backend/
-│   ├── src/
-│   │   ├── main/
-│   │   │   ├── java/
-│   │   │   │   ├── com/
-│   │   │   │   │   └── fitnessplatform/
-│   │   │   │   │       ├── dao/
-│   │   │   │   │       ├── controller/
-│   │   │   │   │       ├── model/
-│   │   │   │   │       └── service/
-│   │   │   ├── resources/
-│   │   │   │   └── application.properties
-│   ├── pom.xml (for Maven/ Spring Boot)
-├── frontend/
-│   ├── src/
-│   │   ├── components/
-│   │   └── App.js
-└── README.md
+online-fitness-training/
+├── src/
+│   └── com/
+│       └── fitnesstraining/
+│           ├── controller/
+│           │   ├── UserServlet.java
+│           │   ├── TrainerServlet.java
+│           │   └── PaymentServlet.java
+│           ├── model/
+│           │   ├── User.java
+│           │   ├── Workout.java
+│           │   ├── Payment.java
+│           │   └── Session.java
+│           ├── util/
+│           │   └── DBConnection.java
+├── WebContent/
+│   ├── index.jsp
+│   ├── login.jsp
+│   ├── trainer-dashboard.jsp
+│   ├── client-dashboard.jsp
+│   ├── payment.jsp
+│   └── web.xml
+├── lib/
+│   └── mysql-connector-java-x.x.x.jar
+└── .gitignore
+
