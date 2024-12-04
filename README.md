@@ -7,7 +7,7 @@ Welcome to the **Online Fitness Training Platform**! This web-based solution con
 ## ✨ **Features**
 **User Roles**:
 
-  - **Use**r: Access and follow personalized workout plans.
+  - **User**: Access and follow personalized workout plans.
   - **Trainer**: Create and manage workout plans, monitor user progress.
   - **Admin**: Manage users, trainers, and overall platform activities.
 - 💪 **Personalized Workout Plans**:
@@ -19,6 +19,11 @@ Track workout history, improvements in performance, and overall fitness progress
 - 🔗 **Database Integration**:
 Uses MySQL to store user data, workout plans, trainer details, and progress logs.
 
+### 📜 **Prerequisites**
+- Java Development Kit (JDK) 11 or higher
+- MySQL (or SQLite for local development)
+- Maven or Gradle (for building the project)
+---
 ## 🚀 **Technologies Used**
 - **Java (JDK)**: Backend development.
 - **JDBC**: Database connectivity.
