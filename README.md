@@ -18,7 +18,7 @@ Track workout history, improvements in performance, and overall fitness progress
 
 - 🔗 **Database Integration**:
 Uses MySQL to store user data, workout plans, trainer details, and progress logs.
-
+---
 ### 📜 **Prerequisites**
 - Java Development Kit (JDK) 11 or higher
 - MySQL (or SQLite for local development)
@@ -43,7 +43,7 @@ Uses MySQL to store user data, workout plans, trainer details, and progress logs
 
 ## 🛠️ **Database Schema**
 The system uses a MySQL database with the following key tables:
-
+---
 ### 🧑‍🤝‍🧑 **Users Table**
 
 
@@ -58,7 +58,7 @@ CREATE TABLE Users (
     role ENUM('user', 'trainer', 'admin') DEFAULT 'user'
 );
 ```
-
+---
 
 ### 🏋️ **Workout Plans Table**
 
@@ -74,7 +74,7 @@ CREATE TABLE WorkoutPlans (
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 ```
-
+---
 
 ### 💪 **User Progress Table**
 
@@ -91,7 +91,7 @@ CREATE TABLE UserProgress (
     achieved_goals TEXT  -- user-specific milestones
 );
 ```
-
+---
 
 ### 🎓 **Trainer Table**
 
@@ -107,7 +107,7 @@ CREATE TABLE Trainers (
     certification TEXT
 );
 ```
-
+---
 
 ## 🗂️ **Project Structure**
 
