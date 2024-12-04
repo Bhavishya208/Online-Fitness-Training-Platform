@@ -43,7 +43,7 @@ Uses MySQL to store user data, workout plans, trainer details, and progress logs
 
 ## 🛠️ **Database Schema**
 The system uses a MySQL database with the following key tables:
----
+
 ### 🧑‍🤝‍🧑 **Users Table**
 
 
