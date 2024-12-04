@@ -19,7 +19,7 @@ Track workout history, improvements in performance, and overall fitness progress
 - 🔗 **Database Integration**:
 Uses MySQL to store user data, workout plans, trainer details, and progress logs.
 ---
-### 📜 **Prerequisites**
+### 📃 **Prerequisites**
 - Java Development Kit (JDK) 11 or higher
 - MySQL (or SQLite for local development)
 - Maven or Gradle (for building the project)
