@@ -22,7 +22,7 @@ Uses MySQL to store user data, workout plans, trainer details, and progress logs
 ### 📃 **Prerequisites**
 - Java Development Kit (JDK) 11 or higher
 - MySQL (or SQLite for local development)
-- Maven or Gradle (for building the project)
+- GUI ( Graphical user interface)
 ---
 ## 🚀 **Technologies Used**
 - **Java (JDK)**: Backend development.
