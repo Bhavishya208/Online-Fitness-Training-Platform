@@ -1,0 +1,71 @@
+import java.sql.*;
+
+public class UserDao {
+    private Connection connection;
+
+    public UserDao() {
+        try {
+            // Establish the connection (use your DB credentials here)
+            connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/fitness_platform", "root", "password");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    // Register a new user
+    public boolean registerUser(User user) {
+        String sql = "INSERT INTO users (name, email, password, role, age, gender, bmi) VALUES (?, ?, ?, ?, ?, ?, ?)";
+        try (PreparedStatement stmt = connection.prepareStatement(sql)) {
+            stmt.setString(1, user.getName());
+            stmt.setString(2, user.getEmail());
+            stmt.setString(3, user.getPassword());
+            stmt.setString(4, user.getRole());
+            stmt.setInt(5, user.getAge());
+            stmt.setString(6, user.getGender());
+            stmt.setDouble(7, user.getBmi());
+            int result = stmt.executeUpdate();
+            return result > 0;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    // Validate user login
+    public boolean validateLogin(String email, String password) {
+        String sql = "SELECT * FROM users WHERE email = ? AND password = ?";
+        try (PreparedStatement stmt = connection.prepareStatement(sql)) {
+            stmt.setString(1, email);
+            stmt.setString(2, password);
+            ResultSet rs = stmt.executeQuery();
+            return rs.next(); // Returns true if user exists
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    // Get user by email
+    public User getUserByEmail(String email) {
+        String sql = "SELECT * FROM users WHERE email = ?";
+        try (PreparedStatement stmt = connection.prepareStatement(sql)) {
+            stmt.setString(1, email);
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next()) {
+                User user = new User();
+                user.setId(rs.getInt("id"));
+                user.setName(rs.getString("name"));
+                user.setEmail(rs.getString("email"));
+                user.setPassword(rs.getString("password"));
+                user.setRole(rs.getString("role"));
+                user.setAge(rs.getInt("age"));
+                user.setGender(rs.getString("gender"));
+                user.setBmi(rs.getDouble("bmi"));
+                return user;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+}

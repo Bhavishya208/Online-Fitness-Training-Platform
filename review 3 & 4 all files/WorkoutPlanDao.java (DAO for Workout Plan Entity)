@@ -1,0 +1,52 @@
+import java.sql.*;
+import java.util.*;
+
+public class WorkoutPlanDao {
+    private Connection connection;
+
+    public WorkoutPlanDao() {
+        try {
+            // Establish the connection (use your DB credentials here)
+            connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/fitness_platform", "root", "password");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    // Get all workout plans
+    public List<WorkoutPlan> getAllWorkoutPlans() {
+        List<WorkoutPlan> plans = new ArrayList<>();
+        String sql = "SELECT * FROM workout_plans";
+        try (Statement stmt = connection.createStatement()) {
+            ResultSet rs = stmt.executeQuery(sql);
+            while (rs.next()) {
+                WorkoutPlan plan = new WorkoutPlan();
+                plan.setId(rs.getInt("id"));
+                plan.setName(rs.getString("name"));
+                plan.setDescription(rs.getString("description"));
+                plan.setVideoLink(rs.getString("video_link"));
+                plan.setDifficulty(rs.getString("difficulty"));
+                plans.add(plan);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return plans;
+    }
+
+    // Add a new workout plan
+    public boolean addWorkoutPlan(WorkoutPlan plan) {
+        String sql = "INSERT INTO workout_plans (name, description, video_link, difficulty) VALUES (?, ?, ?, ?)";
+        try (PreparedStatement stmt = connection.prepareStatement(sql)) {
+            stmt.setString(1, plan.getName());
+            stmt.setString(2, plan.getDescription());
+            stmt.setString(3, plan.getVideoLink());
+            stmt.setString(4, plan.getDifficulty());
+            int result = stmt.executeUpdate();
+            return result > 0;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+}
