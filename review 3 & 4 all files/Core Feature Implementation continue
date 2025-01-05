@@ -1,0 +1,44 @@
+import java.sql.*;
+import java.util.Scanner;
+
+public class UserRegistration {
+
+    public static void registerUser() {
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.print("Enter Username: ");
+        String username = scanner.nextLine();
+
+        System.out.print("Enter Password: ");
+        String password = scanner.nextLine();
+
+        System.out.print("Enter Email: ");
+        String email = scanner.nextLine();
+
+        System.out.print("Enter Age: ");
+        int age = scanner.nextInt();
+
+        System.out.print("Enter Gender (Male/Female): ");
+        String gender = scanner.next();
+
+        try {
+            Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/FitnessDB", "root", "password");
+            String sql = "INSERT INTO Users(username, password, email, age, gender) VALUES (?, ?, ?, ?, ?)";
+            PreparedStatement stmt = conn.prepareStatement(sql);
+
+            stmt.setString(1, username);
+            stmt.setString(2, password);
+            stmt.setString(3, email);
+            stmt.setInt(4, age);
+            stmt.setString(5, gender);
+
+            int rowsInserted = stmt.executeUpdate();
+            if (rowsInserted > 0) {
+                System.out.println("User registered successfully!");
+            }
+            conn.close();
+        } catch (SQLException e) {
+            System.out.println("Database Error: " + e.getMessage());
+        }
+    }
+}

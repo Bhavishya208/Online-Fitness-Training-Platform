@@ -1,0 +1,17 @@
+<dependencies>
+    <!-- AssertJ Swing Dependency for GUI Testing -->
+    <dependency>
+        <groupId>org.assertj</groupId>
+        <artifactId>assertj-swing-junit5</artifactId>
+        <version>3.9.0</version>
+        <scope>test</scope>
+    </dependency>
+
+    <!-- JUnit 5 Dependency -->
+    <dependency>
+        <groupId>org.junit.jupiter</groupId>
+        <artifactId>junit-jupiter-api</artifactId>
+        <version>5.8.1</version>
+        <scope>test</scope>
+    </dependency>
+</dependencies>

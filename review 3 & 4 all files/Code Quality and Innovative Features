@@ -1,0 +1,16 @@
+public static void generateWorkoutPlan(int userId) {
+    try (Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/FitnessDB", "root", "password")) {
+        String workoutPlan = "Monday: Cardio\nTuesday: Strength Training\nWednesday: Yoga\nThursday: HIIT\nFriday: Rest";
+        String sql = "INSERT INTO Workouts(userId, workoutPlan, schedule) VALUES (?, ?, CURDATE())";
+        PreparedStatement stmt = conn.prepareStatement(sql);
+        stmt.setInt(1, userId);
+        stmt.setString(2, workoutPlan);
+
+        int rows = stmt.executeUpdate();
+        if (rows > 0) {
+            System.out.println("Workout plan assigned successfully!");
+        }
+    } catch (SQLException e) {
+        System.out.println("Workout Plan Error: " + e.getMessage());
+    }
+}
