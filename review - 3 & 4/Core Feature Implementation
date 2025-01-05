@@ -1,0 +1,39 @@
+CREATE DATABASE FitnessDB;
+
+USE FitnessDB;
+
+CREATE TABLE Users (
+    userId INT PRIMARY KEY AUTO_INCREMENT,
+    username VARCHAR(50) UNIQUE NOT NULL,
+    password VARCHAR(255) NOT NULL,
+    email VARCHAR(100) UNIQUE NOT NULL,
+    age INT,
+    gender VARCHAR(10),
+    role ENUM('User', 'Trainer') DEFAULT 'User'
+);
+
+CREATE TABLE Trainers (
+    trainerId INT PRIMARY KEY AUTO_INCREMENT,
+    name VARCHAR(50),
+    specialization VARCHAR(100),
+    experience INT,
+    contact VARCHAR(15)
+);
+
+CREATE TABLE Bookings (
+    bookingId INT PRIMARY KEY AUTO_INCREMENT,
+    userId INT,
+    trainerId INT,
+    bookingDate DATE,
+    status ENUM('Pending', 'Confirmed', 'Cancelled') DEFAULT 'Pending',
+    FOREIGN KEY (userId) REFERENCES Users(userId),
+    FOREIGN KEY (trainerId) REFERENCES Trainers(trainerId)
+);
+
+CREATE TABLE Workouts (
+    workoutId INT PRIMARY KEY AUTO_INCREMENT,
+    userId INT,
+    workoutPlan TEXT,
+    schedule DATE,
+    FOREIGN KEY (userId) REFERENCES Users(userId)
+);
