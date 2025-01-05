@@ -1,3 +1,0 @@
-public static boolean validateBookingDate(String date) {
-    return date.matches("\\d{4}-\\d{2}-\\d{2}");
-}
